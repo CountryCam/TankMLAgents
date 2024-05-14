@@ -1,0 +1,23 @@
+behaviors:
+  SmoothTank:
+    trainer_type: ppo
+    hyperparameters:
+      batch_size: 64            # Number of experiences to collect per iteration
+      buffer_size: 1200         # Size of the buffer to store experiences
+      learning_rate: 3.0e-4     # Initial learning rate for the optimizer
+      beta: 0.005               # Strength of the entropy regularization
+      epsilon: 0.2              # Value for the epsilon in PPO
+      lambd: 0.95               # Lambda for GAE (Generalized Advantage Estimation)
+      num_epoch: 3              # Number of passes through the experience buffer
+      learning_rate_schedule: linear
+    network_settings:
+      normalize: false          # Whether to normalize inputs
+      hidden_units: 128         # Number of units in hidden layers
+      num_layers: 2             # Number of hidden layers
+    reward_signals:
+      extrinsic:
+        gamma: 0.99             # Discount factor for future rewards
+        strength: 1.0           # Weight of the extrinsic reward
+    max_steps: 5e5              # Total number of steps to train
+    time_horizon: 64            # How many steps to collect per agent before updating
+    summary_freq: 10000         # Number of experiences gathered before generating summaries

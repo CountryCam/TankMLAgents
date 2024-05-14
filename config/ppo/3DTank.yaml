@@ -1,0 +1,21 @@
+behaviors:
+  TankBrainMLv2:
+    trainer_type: ppo
+    hyperparameters:
+      batch_size: 64
+      buffer_size: 12000
+      learning_rate: 0.0003
+      # Other hyperparameters...
+    network_settings:
+      normalize: true
+      hidden_units: 128
+      num_layers: 2
+      # Other network settings...
+    reward_signals:
+      extrinsic:
+        gamma: 0.99
+        strength: 1.0
+      # Other reward signals...
+    max_steps: 500000
+    time_horizon: 64
+    summary_freq: 12000

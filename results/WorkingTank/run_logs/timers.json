@@ -1,0 +1,42 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1713374171",
+        "python_version": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]",
+        "command_line_arguments": "D:\\Downloads\\Scripts\\mlagents-learn results/FullTank/configuration.yaml --run-id=WorkingTank",
+        "mlagents_version": "1.0.0",
+        "mlagents_envs_version": "1.0.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "1.13.1+cu117",
+        "numpy_version": "1.23.1",
+        "end_time_seconds": "1713374188"
+    },
+    "total": 16.929555800001253,
+    "count": 1,
+    "self": 0.011865899999975227,
+    "children": {
+        "run_training.setup": {
+            "total": 0.24237859999993816,
+            "count": 1,
+            "self": 0.24237859999993816
+        },
+        "TrainerController.start_learning": {
+            "total": 16.67531130000134,
+            "count": 1,
+            "self": 0.0003614000015659258,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 16.674921499998163,
+                    "count": 1,
+                    "self": 16.674921499998163
+                },
+                "TrainerController._save_models": {
+                    "total": 2.840000161086209e-05,
+                    "count": 1,
+                    "self": 2.840000161086209e-05
+                }
+            }
+        }
+    }
+}

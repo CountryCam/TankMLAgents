@@ -1,0 +1,42 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1714012012",
+        "python_version": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]",
+        "command_line_arguments": "D:\\Downloads\\Scripts\\mlagents-learn --run-id=FasterTank --force",
+        "mlagents_version": "1.0.0",
+        "mlagents_envs_version": "1.0.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "1.13.1+cu117",
+        "numpy_version": "1.23.1",
+        "end_time_seconds": "1714012031"
+    },
+    "total": 19.043806300000142,
+    "count": 1,
+    "self": 0.007046400001854636,
+    "children": {
+        "run_training.setup": {
+            "total": 0.061545699998532655,
+            "count": 1,
+            "self": 0.061545699998532655
+        },
+        "TrainerController.start_learning": {
+            "total": 18.975214199999755,
+            "count": 1,
+            "self": 0.0003605999991123099,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 18.974821600000723,
+                    "count": 1,
+                    "self": 18.974821600000723
+                },
+                "TrainerController._save_models": {
+                    "total": 3.199999991920777e-05,
+                    "count": 1,
+                    "self": 3.199999991920777e-05
+                }
+            }
+        }
+    }
+}
