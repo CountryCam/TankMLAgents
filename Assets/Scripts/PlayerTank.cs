@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.Netcode;
-using static UnityEngine.GraphicsBuffer;
-using Unity.PlasticSCM.Editor.WebApi;
+using UnityEngine.SceneManagement;
+
 
 public class PlayerTank :MonoBehaviour
 {
@@ -22,7 +21,7 @@ public class PlayerTank :MonoBehaviour
     }
     public void Update()
     {
-        Debug.Log(Input.GetButton("Jump"));
+        //Debug.Log(Input.GetButton("Jump"));
         if (Input.GetKeyDown(KeyCode.Space))  // Check if the space bar is pressed
         {
             Shoot();
@@ -65,7 +64,7 @@ public class PlayerTank :MonoBehaviour
             SmoothTank tankAgent = hitObj.GetComponent<SmoothTank>();
             if (tankAgent != null)
             {
-                tankAgent.TakeDamage();
+                tankAgent.TakeDamage(Damage);
             }
 
         }
@@ -88,7 +87,12 @@ public class PlayerTank :MonoBehaviour
     {
         CurrentHealth -= Damage;
         
-        if (CurrentHealth <= 0){Destroy(gameObject);}
+        if (CurrentHealth <= 0)
+        {
+            Destroy(gameObject);
+            SceneManager.LoadScene(0);
+
+        }
     }
     
 }

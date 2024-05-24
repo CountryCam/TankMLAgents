@@ -1,17 +1,23 @@
 using UnityEngine;
-using Unity.Netcode;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
-public class GameManager : NetworkBehaviour
+
+
+public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    public TextMeshProUGUI winLoseText;
+    public TextMeshProUGUI winText; // UI Text to display "You Won"
+    public Button menuButton; // Button to return to the main menu
+    public SmoothTank[] tanks; // Array to hold references to all tank instances
 
-    private void Awake()
+    void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -19,52 +25,51 @@ public class GameManager : NetworkBehaviour
         }
     }
 
-    public void CheckGameConditions()
+    void Start()
     {
-        if (!IsServer) return;
+        winText.gameObject.SetActive(false); // Hide the win text at the start
+        menuButton.gameObject.SetActive(false); // Hide the menu button at the start
 
-        NetworkHealthState[] tanks = FindObjectsOfType<NetworkHealthState>();
-        int activeTanks = 0;
-        NetworkHealthState lastActiveTank = null;
+        // Assign the OnClick event to the menu button
+        menuButton.onClick.AddListener(ReturnToMenu);
+    }
 
+    // Call this method to check if all tanks are destroyed
+    public void CheckTanks()
+    {
         foreach (var tank in tanks)
         {
-            if (tank.HealthPoint.Value > 0)
+            if (tank != null)
             {
-                activeTanks++;
-                lastActiveTank = tank;
+                return; // If any tank is still alive, do nothing
             }
         }
 
-        if (activeTanks == 1 && lastActiveTank != null)
-        {
-            NotifyWinClientRpc(lastActiveTank.OwnerClientId);
-        }
-        else if (activeTanks == 0)
-        {
-            // Still working on this one! sorry Hiren
-        }
+        // If all tanks are destroyed
+        winText.gameObject.SetActive(true);
+        menuButton.gameObject.SetActive(true);
     }
 
-    [ServerRpc]
-    public void ReportTankDestructionServerRpc()
+    // Placeholder method to return to the main menu
+    public void ReturnToMenu()
     {
-        CheckGameConditions();
+        // Load the main menu scene 
+        SceneManager.LoadScene(0);
     }
 
-    [ClientRpc]
-    private void NotifyWinClientRpc(ulong winnerClientId)
+    // Method to be called when a tank is destroyed
+    public void TankDestroyed(SmoothTank tank)
     {
-        if (NetworkManager.Singleton.LocalClientId == winnerClientId)
+        // Remove the destroyed tank from the array
+        for (int i = 0; i < tanks.Length; i++)
         {
-            Debug.Log("You Win!");
-            winLoseText.text = "You Win!";
+            if (tanks[i] == tank)
+            {
+                tanks[i] = null;
+                break;
+            }
+        }
 
-        }
-        else
-        {
-            Debug.Log("You Lose!");
-            winLoseText.text = "You Lose!";
-        }
+        CheckTanks(); // Check if all tanks are destroyed
     }
 }
